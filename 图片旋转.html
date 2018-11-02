@@ -1,0 +1,48 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+</head> 
+<body> 
+        <img id="images" width="128" height="96" src="1.png" />旋转
+
+
+        <input id="input2" type="button" value="btn2"></input> 
+</body> 
+<script type="text/javascript" src="jquery.js"></script> 
+<script type="text/javascript" src="ie.js"></script> 
+<script type="text/javascript"> 
+var num = 0;
+function rotade(){
+    $("#input2").bind("click",function(){ 
+        num=(num+1)%4;
+        console.log(num)
+        var ang = 90*(num-1);
+        var angTo = 90*num;
+        $('#images').rotate({
+            angle: ang, 
+            animateTo: angTo, 
+            step:function(e){
+                console.log(e)
+                if( Math.ceil(e)== 90){
+                    ang = Math.ceil(e);
+                    angTo= ang+90;
+                }
+            },
+            callback: function(){
+                $("#input2").unbind("click");
+                rotade();
+            },
+            easing: function(x,t,b,c,d){
+                // console.log(x,t,b,c,d)
+                return c*(t/d)+b;
+            }
+        });
+    }); 
+}
+rotade();
+</script>
+</html> 
+
+ 
